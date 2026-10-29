@@ -1,0 +1,11 @@
+{
+  "name": "simple-mode",
+  "owner": { "name": "609NFT" },
+  "plugins": [
+    {
+      "name": "simple",
+      "source": "./",
+      "description": "Always-on simple mode for Claude Code: core idea first, plain words, jargon defined, code kept exact."
+    }
+  ]
+}

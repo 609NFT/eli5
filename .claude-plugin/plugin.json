@@ -1,0 +1,8 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "description": "Always-on simple mode for Claude Code: core idea first, plain words, jargon defined, code kept exact.",
+  "author": { "name": "609NFT" },
+  "repository": "https://github.com/609NFT/simple-mode",
+  "license": "MIT"
+}

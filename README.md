@@ -2,7 +2,9 @@
 
 Claude Code answers you understand on the first read.
 
-ELI5 is an always-on mode for Claude Code. It puts the core idea first, uses plain words, defines jargon the first time it shows up, and keeps code, paths and error messages exact. It aims for clarity, not shortness, and it is not baby talk: nothing gets less accurate.
+![Without eli5: a dense jargon answer. With eli5: the same answer in plain words, about 20% fewer output tokens.](assets/eli5.png)
+
+ELI5 is an always-on mode for Claude Code. It puts the core idea first, uses plain words, defines jargon the first time it shows up, and keeps code, paths and error messages exact. It aims for clarity, not shortness, and it is not baby talk: nothing gets less accurate. As a bonus it saves money: answers use about 20% fewer output tokens ([details](#token-use-it-saves-money)).
 
 ## Install
 
@@ -47,21 +49,25 @@ The full text is [skills/eli5/SKILL.md](skills/eli5/SKILL.md).
 >
 > With: "A memory leak is when a program keeps taking memory and never gives it back, so it uses more and more until it slows down or crashes. It usually happens because the code still holds a reference (a pointer to the data) it no longer needs, so the memory can't be freed."
 
-## Token use
+## Token use: it saves money
 
-ELI5 is built for clarity, but it also makes answers about 20% shorter.
+**ELI5 makes each answer cheaper, even though it uses slightly more tokens in total.** Answers come out about 20% shorter, and output tokens are the expensive ones.
 
 | Per answer, on average | Without | With | Change |
 | --- | --- | --- | --- |
-| Output tokens | 773 | 622 | -20% |
-| Words in the answer | 323 | 270 | -16% |
+| Output tokens | 773 | 622 | -151 (-20%) |
 | Input tokens | 4,598 | 5,504 | +906 |
+| Words in the answer | 323 | 270 | -16% |
 
-- **Output** drops because the filler goes: no restating the question, no recap at the end. Output tokens are the expensive ones, priced several times higher than input.
-- **Input** goes up by about 900 tokens per turn, because that's the size of the rules the hook loads. After the first turn they're cached (read back at about a tenth of the normal price), so the output savings outweigh them.
-- **Spread:** 10 of 12 questions got shorter, by 14% to 33%. Two came out about the same (+2% and +7%).
+Why 151 fewer output tokens beat 906 more input tokens:
 
-How it was measured: 12 everyday coding questions (concepts, error messages, how-tos), each run twice with and twice without the plugin, through `claude -p` on Sonnet with tools off, on 2026-10-29. Numbers will differ by model and by the kind of question.
+- **Output costs 5x more than input.** On Sonnet 5.5 it's $10 per million output tokens and $2 per million input.
+- **The extra input is cached.** Those ~900 tokens are the ELI5 rules, the same every turn, so after the first turn they're read from cache at $0.20 per million, a tenth of the normal input price.
+- **The math, per answer on Sonnet 5.5:** 151 fewer output tokens save $0.0015, and 906 cached input tokens cost $0.0002. You keep about $0.0013 per answer, or 88% of the output savings. Caching the rules the first time costs about $0.004, which the savings cover by the third answer.
+
+Where it saves less: the 20% was measured on questions and explanations. In coding sessions most tokens are code and tool calls, which ELI5 doesn't shorten, so expect a smaller saving there.
+
+How it was measured: 12 everyday coding questions (concepts, error messages, how-tos), each run twice with and twice without the plugin, through `claude -p` on Sonnet 5.5 with tools off, on 2026-10-29. Prices are Anthropic's API list prices. Results will differ by model and by the kind of question.
 
 ## How it works
 

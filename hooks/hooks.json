@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Simple mode is ON for this session (simple plugin). Follow these rules unless the user has turned it off:'; sed '1,/^---$/d' \"${CLAUDE_PLUGIN_ROOT}/skills/simple/SKILL.md\""
+            "command": "echo 'ELI5 mode is ON for this session (eli5 plugin). Follow these rules unless the user has turned it off:'; sed '1,/^---$/d' \"${CLAUDE_PLUGIN_ROOT}/skills/eli5/SKILL.md\""
           }
         ]
       }

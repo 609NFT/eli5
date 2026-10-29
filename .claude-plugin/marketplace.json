@@ -1,11 +1,11 @@
 {
-  "name": "simple-mode",
+  "name": "eli5",
   "owner": { "name": "609NFT" },
   "plugins": [
     {
-      "name": "simple",
+      "name": "eli5",
       "source": "./",
-      "description": "Always-on simple mode for Claude Code: core idea first, plain words, jargon defined, code kept exact."
+      "description": "Always-on ELI5 mode for Claude Code: core idea first, plain words, jargon defined, code kept exact."
     }
   ]
 }

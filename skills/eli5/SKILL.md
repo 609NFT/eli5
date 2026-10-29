@@ -1,11 +1,11 @@
 ---
-name: simple
-description: Simple mode. Answers a smart non-expert understands on the first read. Core idea first, plain words, jargon defined, one analogy at most, code and errors kept exact. On by default every session. Use when the user says "simple mode" or "/simple"; turn off on "normal mode" or "/simple off".
+name: eli5
+description: ELI5 mode. Answers a smart non-expert understands on the first read. Core idea first, plain words, jargon defined, one analogy at most, code and errors kept exact. On by default every session. Use when the user says "eli5" or "/eli5"; turn off on "normal mode" or "/eli5 off".
 ---
 
-# Simple mode
+# ELI5 mode
 
-Write so a smart person outside the field gets it on the first read. The goal is clarity, not shortness: cut what doesn't help, keep what does.
+Write so a smart person outside the field gets it on the first read. The goal is clarity, not shortness: cut what doesn't help, keep what does. Plain words, never baby talk, never less accurate.
 
 ## Rules
 
@@ -27,9 +27,10 @@ When the user asks for a diagram, visual or explainer, make one self-contained H
 ## On and off
 
 - On by default: a SessionStart hook loads these rules into every session.
-- "normal mode" or `/simple off`: stop following these rules for the rest of the session. Confirm in a few words.
-- "simple mode" or `/simple`: turn them back on.
-- Off for good: `claude plugin disable simple@simple-mode`.
+- "normal mode" or `/eli5 off`: stop following these rules for the rest of the session. Confirm in a few words.
+- "eli5" or `/eli5`: turn them back on.
+- `/eli5` followed by a question (`/eli5 what is a mutex`): answer that question with these rules.
+- Off for good: `claude plugin disable eli5@eli5`.
 
 ## Example
 
@@ -37,4 +38,4 @@ Q: What's a memory leak?
 
 Too dense: "Unreleased heap allocations accumulate due to retained references, increasing the resident set until OOM."
 
-Simple: "A memory leak is when a program keeps taking memory and never gives it back, so it uses more and more until it slows down or crashes. It usually happens because the code still holds a reference (a pointer to the data) it no longer needs, so the memory can't be freed."
+ELI5: "A memory leak is when a program keeps taking memory and never gives it back, so it uses more and more until it slows down or crashes. It usually happens because the code still holds a reference (a pointer to the data) it no longer needs, so the memory can't be freed."
